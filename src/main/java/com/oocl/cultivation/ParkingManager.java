@@ -28,7 +28,7 @@ public class ParkingManager{
         lastErrorMessage = parkingBoy.getLastErrorMessage();
     }
 
-    public ParkingLot getAvailableParkingLot(){
+    private ParkingLot getAvailableParkingLot(){
         for(ParkingLot parkingLot:parkingLots){
             if(parkingLot.getAvailableParkingPosition()>0){
                 return parkingLot;
