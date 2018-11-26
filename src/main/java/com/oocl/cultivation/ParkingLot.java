@@ -25,7 +25,8 @@ public class ParkingLot {
 
 
     public ParkingTicket addCar(Car car){
-        if(getAvailableParkingPosition()>0){
+        boolean parkingLotIsFull=getAvailableParkingPosition()==0;
+        if(!parkingLotIsFull){
             ParkingTicket parkingTicket= new ParkingTicket(this);
             cars.put(parkingTicket, car);
             return parkingTicket;
