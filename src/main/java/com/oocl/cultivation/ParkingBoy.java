@@ -41,7 +41,8 @@ public class ParkingBoy {
             return null;
         }
         ParkingLot parkingLot=ticket.getParkingLot();
-        if(!parkingLots.contains(parkingLot)){
+        boolean parkingLotManagedByParkingBoy=parkingLots.contains(parkingLot);
+        if(!parkingLotManagedByParkingBoy){
             lastErrorMessage="Unrecognized parking ticket.";
             return null;
         }
