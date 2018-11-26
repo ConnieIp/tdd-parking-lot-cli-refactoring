@@ -13,7 +13,7 @@ public class ParkingBoy {
 
     public ParkingLot getAvailableParkingLot(){
         for(ParkingLot parkingLot:parkingLots){
-            boolean parkingLotIsFull = parkingLot.getAvailableParkingPosition()>0;
+            boolean parkingLotIsFull = parkingLot.getAvailableParkingPosition()==0;
             if(!parkingLotIsFull){
                 return parkingLot;
             }
