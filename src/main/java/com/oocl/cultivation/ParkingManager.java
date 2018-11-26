@@ -51,20 +51,39 @@ public class ParkingManager{
     }
 
     public Car fetch(ParkingTicket ticket) {
-        if(ticket==null){
-            lastErrorMessage="Please provide your parking ticket.";
+        if(checkNoTicket(ticket)||checkWrongTicket(ticket)){
             return null;
         }
         ParkingLot parkingLot=ticket.getParkingLot();
-        if(!parkingLots.contains(parkingLot)){
-            lastErrorMessage="Unrecognized parking ticket.";
+        if(!managedParkingLot(parkingLot)){
             return null;
         }
-        Car fetchedCar=parkingLot.getCar(ticket);
-        if(fetchedCar==null) {
+        return parkingLot.getCar(ticket);
+    }
+
+    private boolean checkNoTicket(ParkingTicket ticket){
+        boolean noTicket = ticket==null;
+        if(noTicket){
+            lastErrorMessage="Please provide your parking ticket.";
+        }
+
+        return noTicket;
+    }
+
+    private boolean checkWrongTicket(ParkingTicket ticket){
+        boolean wrongTicket = ticket.getParkingLot()==null || (ticket.getParkingLot()!=null && !ticket.getParkingLot().checkTicketValid(ticket));
+        if(wrongTicket){
             lastErrorMessage="Unrecognized parking ticket.";
         }
-        return fetchedCar;
+        return wrongTicket;
+    }
+
+    private boolean managedParkingLot(ParkingLot parkingLot){
+        boolean parkingLotManagedByParkingBoy=parkingLots.contains(parkingLot);
+        if(!parkingLotManagedByParkingBoy){
+            lastErrorMessage="Unrecognized parking ticket.";
+        }
+        return parkingLotManagedByParkingBoy;
     }
 
     public String getLastErrorMessage() {
