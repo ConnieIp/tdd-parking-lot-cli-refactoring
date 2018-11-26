@@ -42,11 +42,7 @@ public class ParkingManager{
             lastErrorMessage = "The parking lot is full.";
             return null;
         }else {
-            ParkingTicket parkingTicket = parkingLot.addCar(car);
-            if (parkingTicket == null) {
-                lastErrorMessage = "The parking lot is full.";
-            }
-            return parkingTicket;
+            return parkingLot.addCar(car);
         }
     }
 
