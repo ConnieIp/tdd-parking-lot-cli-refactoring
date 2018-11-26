@@ -39,4 +39,8 @@ public class ParkingLot {
         cars.remove(parkingTicket);
         return fetchedCar;
     }
+
+    public boolean checkTicketValid(ParkingTicket parkingTicket){
+        return cars.get(parkingTicket)!=null;
+    }
 }

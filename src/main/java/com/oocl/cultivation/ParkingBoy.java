@@ -1,5 +1,7 @@
 package com.oocl.cultivation;
 
+import sun.security.krb5.internal.Ticket;
+
 import java.util.ArrayList;
 
 public class ParkingBoy {
@@ -35,25 +37,43 @@ public class ParkingBoy {
     }
 
     public Car fetch(ParkingTicket ticket) {
-        boolean noTicket = ticket==null;
-        if(noTicket){
-            lastErrorMessage="Please provide your parking ticket.";
+        if(checkNoTicket(ticket)||checkWrongTicket(ticket)){
             return null;
         }
         ParkingLot parkingLot=ticket.getParkingLot();
-        boolean parkingLotManagedByParkingBoy=parkingLots.contains(parkingLot);
-        if(!parkingLotManagedByParkingBoy){
-            lastErrorMessage="Unrecognized parking ticket.";
+        if(!managedParkingLot(parkingLot)){
             return null;
         }
-        Car fetchedCar=parkingLot.getCar(ticket);
-        if(fetchedCar==null) {
-            lastErrorMessage="Unrecognized parking ticket.";
-        }
-        return fetchedCar;
+        return parkingLot.getCar(ticket);
     }
 
     public String getLastErrorMessage() {
         return lastErrorMessage;
     }
+
+    private boolean checkNoTicket(ParkingTicket ticket){
+        boolean noTicket = ticket==null;
+        if(noTicket){
+            lastErrorMessage="Please provide your parking ticket.";
+        }
+
+        return noTicket;
+    }
+
+    private boolean checkWrongTicket(ParkingTicket ticket){
+        boolean wrongTicket = ticket.getParkingLot()==null || (ticket.getParkingLot()!=null && !ticket.getParkingLot().checkTicketValid(ticket));
+        if(wrongTicket){
+            lastErrorMessage="Unrecognized parking ticket.";
+        }
+        return wrongTicket;
+    }
+
+    private boolean managedParkingLot(ParkingLot parkingLot){
+        boolean parkingLotManagedByParkingBoy=parkingLots.contains(parkingLot);
+        if(!parkingLotManagedByParkingBoy){
+            lastErrorMessage="Unrecognized parking ticket.";
+        }
+        return parkingLotManagedByParkingBoy;
+    }
+
 }
