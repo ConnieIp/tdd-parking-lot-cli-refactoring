@@ -12,13 +12,17 @@ public class ParkingManager extends ParkingBoy{
 
     public ParkingTicket parkCarByParkingBoy(ParkingBoy parkingBoy,Car car){
         ParkingTicket parkedCar = parkingBoy.park(car);
-        lastErrorMessage = parkingBoy.getLastErrorMessage();
+        getLastErrorMessageFromParkingBoy(parkingBoy);
         return parkedCar;
     }
 
     public Car fetchCarByParkingBoy(ParkingBoy parkingBoy,ParkingTicket parkingTicket){
         Car fetchedcar=parkingBoy.fetch(parkingTicket);
-        lastErrorMessage = parkingBoy.getLastErrorMessage();
+        getLastErrorMessageFromParkingBoy(parkingBoy);
         return fetchedcar;
+    }
+
+    private void getLastErrorMessageFromParkingBoy(ParkingBoy parkingBoy){
+        lastErrorMessage = parkingBoy.getLastErrorMessage();
     }
 }
