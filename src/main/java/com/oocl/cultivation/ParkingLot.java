@@ -25,13 +25,12 @@ public class ParkingLot {
 
 
     public ParkingTicket addCar(Car car){
-        if(getAvailableParkingPosition()==0){
-            return null;
-        }else {
+        if(getAvailableParkingPosition()>0){
             ParkingTicket parkingTicket= new ParkingTicket(this);
             cars.put(parkingTicket, car);
             return parkingTicket;
         }
+        return null;
     }
 
     public Car getCar(ParkingTicket parkingTicket){
