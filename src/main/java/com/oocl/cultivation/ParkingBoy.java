@@ -35,7 +35,8 @@ public class ParkingBoy {
     }
 
     public Car fetch(ParkingTicket ticket) {
-        if(ticket==null){
+        boolean noTicket = ticket==null;
+        if(noTicket){
             lastErrorMessage="Please provide your parking ticket.";
             return null;
         }
